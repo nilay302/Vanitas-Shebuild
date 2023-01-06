@@ -1,0 +1,3 @@
+admin credentials:
+    username:vanitas
+    password:vanitas123

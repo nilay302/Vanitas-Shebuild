@@ -2,6 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
+const userRoutes = require('./api/routes/Users');
+const adminRoutes = require('./api/routes/Admin');
+
 const connectDB = require('./db');
 require("dotenv").config();
 
@@ -23,4 +27,9 @@ app.use((req,res,next)=>{
         return res.status(200).json({});
     }
     next();
-})
+});
+
+app.use('/users',userRoutes);
+app.use('/admin',adminRoutes);
+
+module.exports = app;
