@@ -9,13 +9,13 @@ exports.admin_login = async(req, res, next) => {
             })
         }else{
             if (admin[0].password === req.body.password ){
-                return res.status(200).json({
+                return res.status(201).json({
                     result: admin[0],
                     message: "login succesfull"
                 })
             }
             else{
-                return res.status(200).json({
+                return res.status(404).json({
                     message: "login unsuccesfull.Please try again"
                 }) 
             }
