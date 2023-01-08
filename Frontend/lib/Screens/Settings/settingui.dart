@@ -188,12 +188,12 @@
 //   }
 // }
 
-import 'package:final_shebuilds/Screens/Home.dart';
+import 'package:final_shebuilds/Screens/Home/Home.dart';
 import 'package:final_shebuilds/Screens/Login/components/login_form.dart';
 import 'package:final_shebuilds/Screens/Settings/widgets.dart';
 import 'package:final_shebuilds/Screens/Signup/signup_screen.dart';
 import 'package:final_shebuilds/Screens/Welcome/btmBar.dart';
-import 'package:final_shebuilds/Screens/explore.dart';
+import 'package:final_shebuilds/Screens/Explore/explore.dart';
 import 'package:final_shebuilds/Screens/post.dart';
 import 'package:flutter/material.dart';
 
@@ -215,24 +215,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int selectedIndex = 0;
+    List sdf = [
+      HomePage(),
+      Home(),
+      Post(),
+      SettingsScreen(),
+    ];
+    sdf[selectedIndex];
     return Scaffold(
       bottomNavigationBar: GNav(
+        backgroundColor: Colors.pink.shade200,
+        //selectedIndex: selectedIndex ,
         rippleColor: Colors.grey!,
+        selectedIndex: selectedIndex,
+        onTabChange: (index) {
+          setState(() {
+            selectedIndex = index;
+            print(index);
+          });
+        },
         hoverColor: Colors.white!,
         gap: 8,
         activeColor: Colors.white,
         iconSize: 24,
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         duration: Duration(milliseconds: 400),
-        tabBackgroundColor: Colors.pink[200]!,
-        color: Colors.black,
+        tabBackgroundColor: Colors.pink[100]!,
+        color: Colors.white,
         tabs: [
           GButton(
             icon: Icons.home,
             text: '',
             // onPressed: (){
+
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HomePage()));
+              //selectedIndex = 0;
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => HomePage()));
               //    Navigator.of(context)
               //        .push(CupertinoPageRoute(builder: (context) => Post()));
               // },
@@ -242,28 +262,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
               icon: Icons.search,
               text: '',
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Home()));}
-          ),
+                //selectedIndex = 1;
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Home()));
+              }),
           GButton(
               icon: Icons.post_add,
               text: '',
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Post()));}
-          ),
+                //selectedIndex = 2;
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Post()));
+              }),
           GButton(
               icon: Icons.account_circle,
               text: '',
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SettingsScreen()));}
-          ),
+                //selectedIndex = 3;
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SettingsScreen()));
+              }),
         ],
-        //selectedIndex: _selectedIndex,
-        // onTabChange: (index) {
-        //   setState(() {
-        //     _selectedIndex = index;
-        //   });
-        // },
+
       ),
+
       //bottomNavigationBar: btmBar(),
       body: SafeArea(
         child: Padding(
@@ -278,15 +300,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 40),
               SettingsTile(
                 color: Colors.pink.shade200,
-                icon: Ionicons.person_circle_outline,
+                icon: Ionicons.people_circle_outline,
                 title: "Account",
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return LoginForm();
-                      },
+                        builder: (context) => EditProfileUI(),
                     ),
                   );
                 },
@@ -296,13 +316,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile(
                 color: Colors.pink.shade200,
-                icon: Ionicons.pencil_outline,
-                title: "Edit Information",
+                icon: Ionicons.people_circle_outline,
+                title: "Feedback",
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditProfileUI()
+                        builder: (context) => Post()
                     ),
                   );
                 },
@@ -363,7 +383,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => EditProfileUI()
+                        builder: (context) => Post()
                     ),
                   );
                 },
@@ -373,22 +393,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile(
                 color: Colors.pink.shade200,
-                icon: Ionicons.log_out_outline,
-                title: "Logout",
+                icon: Ionicons.people_circle_outline,
+                title: "Feedback",
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return LoginForm();
-                      },
+                        builder: (context) => LoginForm()
                     ),
                   );
                 },
-                // TextField(
-                //   controller: myController,
-                // ),
-                // onTap: () {},
               ),
             ],
           ),
